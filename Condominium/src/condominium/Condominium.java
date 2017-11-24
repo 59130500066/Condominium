@@ -6,6 +6,7 @@
 package condominium;
 
 import com.toedter.calendar.JDateChooser;
+import condominium.model.User;
 import java.awt.Color;
 import java.util.Calendar;
 import java.util.Date;
@@ -20,10 +21,17 @@ public class Condominium extends javax.swing.JFrame {
     /**
      * Creates new form Register
      */
+    User myuser = null;
+
     public Condominium() {
+
         initComponents();
         adRegister.setVisible(false);
         adIndex.setVisible(false);
+        userIndex.setVisible(false);
+        adReport.setVisible(false);
+        userProfile.setVisible(false);
+        userReport.setVisible(false);
         firstname.setBackground(new Color(0, 0, 0, 0));
         lastname.setBackground(new Color(0, 0, 0, 0));
         usertype.setBackground(new Color(0, 0, 0, 0));
@@ -49,6 +57,9 @@ public class Condominium extends javax.swing.JFrame {
         password.setBackground(new Color(0, 0, 0, 0));
         password.setEchoChar('•');
         setLocationRelativeTo(null);
+        profileBtn.setBackground(new Color(0, 0, 0, 0));
+        userShow.setBackground(new Color(0, 0, 0, 0));
+        reportBtn.setBackground(new Color(0, 0, 0, 0));
 
     }
 
@@ -61,12 +72,48 @@ public class Condominium extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        userReport = new javax.swing.JPanel();
+        reportHeader = new javax.swing.JLabel();
+        reportDetail = new javax.swing.JLabel();
+        problemType = new javax.swing.JLabel();
+        reportHeaderTF = new javax.swing.JTextField();
+        reportDetailTF = new javax.swing.JTextField();
+        problemTypeCB = new javax.swing.JComboBox<>();
+        save_report = new javax.swing.JButton();
+        cancel_report = new javax.swing.JButton();
+        userProfile = new javax.swing.JPanel();
+        user_userId = new javax.swing.JTextField();
+        user_fName = new javax.swing.JTextField();
+        user_lName = new javax.swing.JTextField();
+        user_nation = new javax.swing.JTextField();
+        user_idCard = new javax.swing.JTextField();
+        user_address = new javax.swing.JTextField();
+        user_telNo = new javax.swing.JTextField();
+        user_emergTelNo = new javax.swing.JTextField();
+        fName = new javax.swing.JLabel();
+        lName = new javax.swing.JLabel();
+        User_Id = new javax.swing.JLabel();
+        IDcard = new javax.swing.JLabel();
+        telNo = new javax.swing.JLabel();
+        address = new javax.swing.JLabel();
+        emergTelNo = new javax.swing.JLabel();
+        nation = new javax.swing.JLabel();
+        ok = new javax.swing.JButton();
+        userIndex = new javax.swing.JPanel();
+        userShow = new javax.swing.JTextField();
+        reportBtn = new javax.swing.JButton();
+        profileBtn = new javax.swing.JButton();
+        userIndexBg = new javax.swing.JLabel();
         Login = new javax.swing.JPanel();
         username = new javax.swing.JTextField();
         status = new javax.swing.JTextField();
         password = new javax.swing.JPasswordField();
         login = new javax.swing.JButton();
         Background = new javax.swing.JLabel();
+        adIndex = new javax.swing.JPanel();
+        regisbut = new javax.swing.JButton();
+        register1 = new javax.swing.JButton();
+        adminIndexbg = new javax.swing.JLabel();
         adReport = new javax.swing.JPanel();
         home1 = new javax.swing.JButton();
         report1 = new javax.swing.JButton();
@@ -91,11 +138,7 @@ public class Condominium extends javax.swing.JFrame {
         report = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        jLabel1 = new javax.swing.JLabel();
-        adIndex = new javax.swing.JPanel();
-        regisbut = new javax.swing.JButton();
-        register1 = new javax.swing.JButton();
-        adminIndexbg = new javax.swing.JLabel();
+        registerBg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(750, 600));
@@ -103,6 +146,155 @@ public class Condominium extends javax.swing.JFrame {
         setResizable(false);
         setSize(new java.awt.Dimension(750, 600));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        userReport.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        reportHeader.setText("หัวข้อปัญหา");
+        userReport.add(reportHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, -1, -1));
+
+        reportDetail.setText("รายละเอียดปัญหา");
+        userReport.add(reportDetail, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, -1, -1));
+
+        problemType.setText("ชนิดปัญหา");
+        userReport.add(problemType, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 290, -1, -1));
+        userReport.add(reportHeaderTF, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, 600, 30));
+        reportHeaderTF.getAccessibleContext().setAccessibleName("");
+
+        reportDetailTF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reportDetailTFActionPerformed(evt);
+            }
+        });
+        userReport.add(reportDetailTF, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 210, 600, 60));
+
+        problemTypeCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ระบบแอร์", "ระบบประปา", "ระบบไฟฟ้า", "ระบบสื่อสาร", "สิ่งก่อสร้าง/ครุภัณฑ์", "อื่นๆ" }));
+        userReport.add(problemTypeCB, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 310, -1, -1));
+
+        save_report.setText("บันทึก");
+        save_report.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                save_reportActionPerformed(evt);
+            }
+        });
+        userReport.add(save_report, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 380, -1, -1));
+
+        cancel_report.setText("ยกเลิก");
+        cancel_report.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancel_reportActionPerformed(evt);
+            }
+        });
+        userReport.add(cancel_report, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 380, -1, -1));
+
+        getContentPane().add(userReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 600));
+
+        userProfile.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        user_userId.setEditable(false);
+        user_userId.setToolTipText("");
+        userProfile.add(user_userId, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 190, 30));
+
+        user_fName.setEditable(false);
+        user_fName.setToolTipText("");
+        user_fName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                user_fNameActionPerformed(evt);
+            }
+        });
+        userProfile.add(user_fName, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 220, 190, 30));
+
+        user_lName.setEditable(false);
+        userProfile.add(user_lName, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 220, 190, 30));
+
+        user_nation.setEditable(false);
+        userProfile.add(user_nation, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 150, 190, 30));
+
+        user_idCard.setEditable(false);
+        user_idCard.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                user_idCardActionPerformed(evt);
+            }
+        });
+        userProfile.add(user_idCard, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 290, 190, 30));
+
+        user_address.setEditable(false);
+        user_address.setAutoscrolls(false);
+        userProfile.add(user_address, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 360, 190, 60));
+        user_address.getAccessibleContext().setAccessibleName("");
+
+        user_telNo.setEditable(false);
+        userProfile.add(user_telNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 290, 190, 30));
+
+        user_emergTelNo.setEditable(false);
+        user_emergTelNo.setToolTipText("");
+        userProfile.add(user_emergTelNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 360, 190, 30));
+
+        fName.setText("ชื่อ");
+        userProfile.add(fName, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 50, 30));
+
+        lName.setText("นามสกุล");
+        userProfile.add(lName, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 210, 40, 30));
+
+        User_Id.setText("User ID");
+        userProfile.add(User_Id, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 50, 30));
+
+        IDcard.setText("ID Card");
+        userProfile.add(IDcard, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, -1, 20));
+
+        telNo.setText("เบอร์โทรศัพท์");
+        userProfile.add(telNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 290, -1, -1));
+
+        address.setText("ที่อยู่");
+        userProfile.add(address, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, -1, -1));
+
+        emergTelNo.setText("เบอร์ติดต่อฉุกเฉิน");
+        userProfile.add(emergTelNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 360, -1, -1));
+
+        nation.setText("เชื้อชาติ");
+        userProfile.add(nation, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 150, -1, -1));
+
+        ok.setText("ตกลง");
+        ok.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                okActionPerformed(evt);
+            }
+        });
+        userProfile.add(ok, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 480, -1, -1));
+
+        getContentPane().add(userProfile, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 600));
+
+        userIndex.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        userShow.setEditable(false);
+        userShow.setBorder(null);
+        userShow.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userShowActionPerformed(evt);
+            }
+        });
+        userIndex.add(userShow, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 20, 230, 30));
+
+        reportBtn.setBorder(null);
+        reportBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reportBtnActionPerformed(evt);
+            }
+        });
+        userIndex.add(reportBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 130, 210, 420));
+
+        profileBtn.setBorder(null);
+        profileBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                profileBtnActionPerformed(evt);
+            }
+        });
+        userIndex.add(profileBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 210, 420));
+
+        userIndexBg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/condominium/User-index.png"))); // NOI18N
+        userIndexBg.setText("jLabel1");
+        userIndex.add(userIndexBg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        getContentPane().add(userIndex, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 600));
 
         Login.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -144,12 +336,37 @@ public class Condominium extends javax.swing.JFrame {
         Login.add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 540, 140, 40));
 
         Background.setForeground(new java.awt.Color(238, 218, 209));
-        Background.setIcon(new javax.swing.ImageIcon("D:\\Condominium\\Condominium\\Condominium\\src\\condominium\\pic\\gui-ex.png")); // NOI18N
+        Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/condominium/gui-ex.png"))); // NOI18N
         Background.setText("jLabel1");
         Background.setPreferredSize(new java.awt.Dimension(750, 600));
         Login.add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, -1));
 
         getContentPane().add(Login, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 600));
+
+        adIndex.setPreferredSize(new java.awt.Dimension(750, 600));
+        adIndex.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        regisbut.setPreferredSize(new java.awt.Dimension(224, 431));
+        regisbut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                regisbutActionPerformed(evt);
+            }
+        });
+        adIndex.add(regisbut, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 210, 420));
+
+        register1.setContentAreaFilled(false);
+        register1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                register1ActionPerformed(evt);
+            }
+        });
+        adIndex.add(register1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 70, 70, 30));
+
+        adminIndexbg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/condominium/pic/Admin-index.png"))); // NOI18N
+        adminIndexbg.setText("jLabel2");
+        adIndex.add(adminIndexbg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        getContentPane().add(adIndex, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 600));
 
         adReport.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -180,7 +397,7 @@ public class Condominium extends javax.swing.JFrame {
 
         adReport.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, 500, 460));
 
-        adReportBg.setIcon(new javax.swing.ImageIcon("D:\\Condominium\\Condominium\\Condominium\\src\\condominium\\pic\\Admin-report.png")); // NOI18N
+        adReportBg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/condominium/Admin-report.png"))); // NOI18N
         adReportBg.setText("jLabel2");
         adReport.add(adReportBg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 600));
 
@@ -244,37 +461,12 @@ public class Condominium extends javax.swing.JFrame {
 
         adRegister.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 450, 470, 80));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("D:\\Condominium\\Condominium\\Condominium\\src\\condominium\\pic\\register.png")); // NOI18N
-        jLabel1.setText("jLabel1");
-        jLabel1.setPreferredSize(new java.awt.Dimension(750, 600));
-        adRegister.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 600));
+        registerBg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/condominium/pic/register.png"))); // NOI18N
+        registerBg.setText("jLabel1");
+        registerBg.setPreferredSize(new java.awt.Dimension(750, 600));
+        adRegister.add(registerBg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 600));
 
         getContentPane().add(adRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 600));
-
-        adIndex.setPreferredSize(new java.awt.Dimension(750, 600));
-        adIndex.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        regisbut.setPreferredSize(new java.awt.Dimension(224, 431));
-        regisbut.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                regisbutActionPerformed(evt);
-            }
-        });
-        adIndex.add(regisbut, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 230, 440));
-
-        register1.setContentAreaFilled(false);
-        register1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                register1ActionPerformed(evt);
-            }
-        });
-        adIndex.add(register1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 70, 70, 30));
-
-        adminIndexbg.setIcon(new javax.swing.ImageIcon("D:\\Condominium\\Condominium\\Condominium\\src\\condominium\\pic\\Admin-index.png")); // NOI18N
-        adminIndexbg.setText("jLabel2");
-        adIndex.add(adminIndexbg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        getContentPane().add(adIndex, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 600));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -299,24 +491,40 @@ public class Condominium extends javax.swing.JFrame {
     }//GEN-LAST:event_register1ActionPerformed
 
     private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
-        
+
     }//GEN-LAST:event_usernameActionPerformed
 
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
+        username.setText("user01");
+        password.setText("user");
         String user = username.getText();
         char[] word = password.getPassword();
         String pass = new String(word);
-        System.out.println("User : "+user);
-        System.out.println("Pass : "+pass);
-        if (!(user.equals("")&& pass.equals(""))) {
-            if (user.equalsIgnoreCase("Boom") && (pass.equalsIgnoreCase("Purich1998"))) {
-                adIndex.setVisible(true);
-                Login.setVisible(false);
+        User u = null;
+        if (!(user.equals("") && pass.equals(""))) {
+            u = User.findByUser(user, pass);
+            if (user.equals(u.getUserName()) && (pass.equals(u.getUserPassword()))) {
+
+                if (u.getUserType().equalsIgnoreCase("Admin")) {
+                    adIndex.setVisible(true);
+                    Login.setVisible(false);
+                    myuser = u;
+                }
+                if (u.getUserType().equalsIgnoreCase("User")) {
+                    userIndex.setVisible(true);
+                    Login.setVisible(false);
+                    myuser = u;
+
+                    if (myuser != null) {
+                        userShow.setText(myuser.getUserName());
+                    }
+                }
+
             } else {
                 String st = "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";
                 status.setText(st);
             }
-        }else{
+        } else {
             String st = "กรุณาระบุชื่อผู้ใช้";
             status.setText(st);
         }
@@ -330,6 +538,68 @@ public class Condominium extends javax.swing.JFrame {
     private void home1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_home1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_home1ActionPerformed
+
+    private void profileBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileBtnActionPerformed
+        // TODO add your handling code here:
+        userProfile.setVisible(true);
+        userIndex.setVisible(false);
+        if (myuser != null) {
+            user_fName.setText(myuser.getUserFname());
+            user_lName.setText(myuser.getUserLname());
+            user_userId.setText(String.valueOf(myuser.getUserId()));
+            user_nation.setText(myuser.getUserNation());
+            user_idCard.setText(myuser.getUserIdcard());
+            user_address.setText(myuser.getUserAddress());
+            user_emergTelNo.setText(myuser.getUserEmergTel());
+        }
+
+    }//GEN-LAST:event_profileBtnActionPerformed
+
+    private void user_fNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_user_fNameActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_user_fNameActionPerformed
+
+    private void userShowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userShowActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_userShowActionPerformed
+
+    private void user_idCardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_user_idCardActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_user_idCardActionPerformed
+
+    private void reportBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportBtnActionPerformed
+        // TODO add your handling code here:
+        userIndex.setVisible(false);
+        userReport.setVisible(true);
+        
+        if(myuser != null){
+            
+        }
+    }//GEN-LAST:event_reportBtnActionPerformed
+
+    private void reportDetailTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportDetailTFActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_reportDetailTFActionPerformed
+
+    private void save_reportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_save_reportActionPerformed
+        // TODO add your handling code here:
+        String reportH = reportHeader.getText();
+        String reportD = reportDetail.getText();
+    }//GEN-LAST:event_save_reportActionPerformed
+
+    private void okActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okActionPerformed
+        // TODO add your handling code here:
+        userProfile.setVisible(false);
+        userIndex.setVisible(true);
+    }//GEN-LAST:event_okActionPerformed
+
+    private void cancel_reportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancel_reportActionPerformed
+        // TODO add your handling code here:
+        userReport.setVisible(false);
+        userIndex.setVisible(true);
+    }//GEN-LAST:event_cancel_reportActionPerformed
 
     /**
      * @param args the command line arguments
@@ -371,33 +641,65 @@ public class Condominium extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Background;
+    private javax.swing.JLabel IDcard;
     private javax.swing.JPanel Login;
+    private javax.swing.JLabel User_Id;
     private javax.swing.JPanel adIndex;
     private javax.swing.JPanel adRegister;
     private javax.swing.JPanel adReport;
     private javax.swing.JLabel adReportBg;
+    private javax.swing.JLabel address;
     private javax.swing.JLabel adminIndexbg;
+    private javax.swing.JButton cancel_report;
     private javax.swing.JButton clear;
     private com.toedter.calendar.JDateChooser date;
     private javax.swing.JTextField email;
+    private javax.swing.JLabel emergTelNo;
+    private javax.swing.JLabel fName;
     private javax.swing.JTextField firstname;
     private javax.swing.JButton home;
     private javax.swing.JButton home1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JLabel lName;
     private javax.swing.JTextField lastname;
     private javax.swing.JButton login;
+    private javax.swing.JLabel nation;
+    private javax.swing.JButton ok;
     private javax.swing.JPasswordField password;
+    private javax.swing.JLabel problemType;
+    private javax.swing.JComboBox<String> problemTypeCB;
+    private javax.swing.JButton profileBtn;
     private javax.swing.JButton regisbut;
     private javax.swing.JButton register1;
+    private javax.swing.JLabel registerBg;
     private javax.swing.JButton report;
     private javax.swing.JButton report1;
+    private javax.swing.JButton reportBtn;
+    private javax.swing.JLabel reportDetail;
+    private javax.swing.JTextField reportDetailTF;
+    private javax.swing.JLabel reportHeader;
+    private javax.swing.JTextField reportHeaderTF;
     private javax.swing.JButton save;
+    private javax.swing.JButton save_report;
     private javax.swing.JTextField status;
+    private javax.swing.JLabel telNo;
     private javax.swing.JTextField userId;
+    private javax.swing.JPanel userIndex;
+    private javax.swing.JLabel userIndexBg;
+    private javax.swing.JPanel userProfile;
+    private javax.swing.JPanel userReport;
+    private javax.swing.JTextField userShow;
+    private javax.swing.JTextField user_address;
+    private javax.swing.JTextField user_emergTelNo;
+    private javax.swing.JTextField user_fName;
+    private javax.swing.JTextField user_idCard;
+    private javax.swing.JTextField user_lName;
+    private javax.swing.JTextField user_nation;
+    private javax.swing.JTextField user_telNo;
+    private javax.swing.JTextField user_userId;
     private javax.swing.JTextField useremerg;
     private javax.swing.JTextField username;
     private javax.swing.JTextField usernation;

@@ -22,7 +22,7 @@ public class ConnectionBuilder {
         Connection con = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://45.76.180.36:3306/Condominium?characterEncoding=UTF-8", "root", "P@ssword");
+            con = DriverManager.getConnection("jdbc:mysql://45.76.180.36:3306/Condominium?characterEncoding=UTF-8", "test", "test");
             //characterEncoding=UTF-8
 
 //            PreparedStatement state = con.prepareStatement("select * from user");
@@ -31,11 +31,11 @@ public class ConnectionBuilder {
 //                System.out.println(result.getString("userId")+" "+result.getNString("userName"));
 //            }
         } catch (ClassNotFoundException e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         } catch (SQLException e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         } catch (NullPointerException n) {
-            System.out.println("ไม่เจอ db");
+            System.out.println("Can't Connection");
         }
         return con;
 
