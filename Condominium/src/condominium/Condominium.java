@@ -144,7 +144,7 @@ public class Condominium extends javax.swing.JFrame {
         Login.add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 540, 140, 40));
 
         Background.setForeground(new java.awt.Color(238, 218, 209));
-        Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/condominium/gui-ex.png"))); // NOI18N
+        Background.setIcon(new javax.swing.ImageIcon("D:\\Condominium\\Condominium\\Condominium\\src\\condominium\\pic\\gui-ex.png")); // NOI18N
         Background.setText("jLabel1");
         Background.setPreferredSize(new java.awt.Dimension(750, 600));
         Login.add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, -1));
@@ -180,7 +180,7 @@ public class Condominium extends javax.swing.JFrame {
 
         adReport.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, 500, 460));
 
-        adReportBg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/condominium/Admin-report.png"))); // NOI18N
+        adReportBg.setIcon(new javax.swing.ImageIcon("D:\\Condominium\\Condominium\\Condominium\\src\\condominium\\pic\\Admin-report.png")); // NOI18N
         adReportBg.setText("jLabel2");
         adReport.add(adReportBg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 600));
 
@@ -244,7 +244,7 @@ public class Condominium extends javax.swing.JFrame {
 
         adRegister.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 450, 470, 80));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/condominium/register.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon("D:\\Condominium\\Condominium\\Condominium\\src\\condominium\\pic\\register.png")); // NOI18N
         jLabel1.setText("jLabel1");
         jLabel1.setPreferredSize(new java.awt.Dimension(750, 600));
         adRegister.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 600));
@@ -270,7 +270,7 @@ public class Condominium extends javax.swing.JFrame {
         });
         adIndex.add(register1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 70, 70, 30));
 
-        adminIndexbg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/condominium/Admin-index.png"))); // NOI18N
+        adminIndexbg.setIcon(new javax.swing.ImageIcon("D:\\Condominium\\Condominium\\Condominium\\src\\condominium\\pic\\Admin-index.png")); // NOI18N
         adminIndexbg.setText("jLabel2");
         adIndex.add(adminIndexbg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
