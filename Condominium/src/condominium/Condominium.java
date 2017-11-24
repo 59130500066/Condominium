@@ -101,7 +101,6 @@ public class Condominium extends javax.swing.JFrame {
         username.setBackground(new Color(0,0,0,0));
         username.setFont(new java.awt.Font("DB Helvethaica X 45 Li", 1, 24)); // NOI18N
         username.setForeground(new java.awt.Color(255, 204, 204));
-        username.setBorder(null);
         username.setCaretColor(new java.awt.Color(238, 218, 209));
         username.setSelectedTextColor(new java.awt.Color(238, 218, 209));
         username.addActionListener(new java.awt.event.ActionListener() {
@@ -114,7 +113,6 @@ public class Condominium extends javax.swing.JFrame {
         status.setEditable(false);
         status.setFont(new java.awt.Font("DB Helvethaica X 55 Regular", 1, 24)); // NOI18N
         status.setForeground(new java.awt.Color(255, 170, 171));
-        status.setBorder(null);
         status.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 statusActionPerformed(evt);
@@ -124,10 +122,8 @@ public class Condominium extends javax.swing.JFrame {
 
         password.setFont(new java.awt.Font("DB Helvethaica X 45 Li", 1, 36)); // NOI18N
         password.setForeground(new java.awt.Color(255, 171, 172));
-        password.setBorder(null);
         Login.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 552, 260, 30));
 
-        login.setBorder(null);
         login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loginActionPerformed(evt);
@@ -149,7 +145,6 @@ public class Condominium extends javax.swing.JFrame {
         register.add(date, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 170, 160, -1));
 
         lastname.setFont(new java.awt.Font("DB Helvethaica X 45 Li", 1, 24)); // NOI18N
-        lastname.setBorder(null);
         register.add(lastname, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 160, 130, 30));
 
         home.addActionListener(new java.awt.event.ActionListener() {
@@ -160,31 +155,24 @@ public class Condominium extends javax.swing.JFrame {
         register.add(home, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 180, 80));
 
         userId.setFont(new java.awt.Font("DB Helvethaica X 45 Li", 1, 24)); // NOI18N
-        userId.setBorder(null);
         register.add(userId, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 230, 150, 30));
 
         usertel.setFont(new java.awt.Font("DB Helvethaica X 45 Li", 1, 24)); // NOI18N
-        usertel.setBorder(null);
         register.add(usertel, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 230, 150, 30));
 
         usernation.setFont(new java.awt.Font("DB Helvethaica X 45 Li", 1, 24)); // NOI18N
-        usernation.setBorder(null);
         register.add(usernation, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 230, 110, 30));
 
         useremerg.setFont(new java.awt.Font("DB Helvethaica X 45 Li", 1, 24)); // NOI18N
-        useremerg.setBorder(null);
         register.add(useremerg, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 300, 150, 30));
 
         email.setFont(new java.awt.Font("DB Helvethaica X 45 Li", 1, 24)); // NOI18N
-        email.setBorder(null);
         register.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 370, 180, 30));
 
         userregis.setFont(new java.awt.Font("DB Helvethaica X 45 Li", 1, 24)); // NOI18N
-        userregis.setBorder(null);
         register.add(userregis, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 300, 130, 30));
 
         firstname.setFont(new java.awt.Font("DB Helvethaica X 45 Li", 1, 24)); // NOI18N
-        firstname.setBorder(null);
         register.add(firstname, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 160, 140, 30));
 
         usertype.setFont(new java.awt.Font("DB Helvethaica X 45 Li", 1, 24)); // NOI18N
@@ -199,14 +187,12 @@ public class Condominium extends javax.swing.JFrame {
         register.add(save, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 530, 100, 40));
 
         userpass.setFont(new java.awt.Font("DB Helvethaica X 45 Li", 1, 24)); // NOI18N
-        userpass.setBorder(null);
         register.add(userpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 300, 150, -1));
         register.add(report, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 70, 70, 30));
 
         jTextArea1.setColumns(20);
         jTextArea1.setFont(new java.awt.Font("DB Helvethaica X 55 Regular", 0, 24)); // NOI18N
         jTextArea1.setRows(5);
-        jTextArea1.setBorder(null);
         jScrollPane1.setViewportView(jTextArea1);
 
         register.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 450, 470, 80));
