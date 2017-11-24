@@ -22,7 +22,7 @@ public class Condominium extends javax.swing.JFrame {
      */
     public Condominium() {
         initComponents();
-        register.setVisible(false);
+        adRegister.setVisible(false);
         adIndex.setVisible(false);
         firstname.setBackground(new Color(0, 0, 0, 0));
         lastname.setBackground(new Color(0, 0, 0, 0));
@@ -35,7 +35,9 @@ public class Condominium extends javax.swing.JFrame {
         usernation.setBackground(new Color(0, 0, 0, 0));
         email.setBackground(new Color(0, 0, 0, 0));
         userpass.setBackground(new Color(0, 0, 0, 0));
-        usertype.setBackground(new Color(0, 0, 0, 0));
+        username.setBackground(new Color(0, 0, 0, 0));
+        login.setBackground(new Color(0, 0, 0, 0));
+        status.setBackground(new Color(0, 0, 0, 0));
         regisbut.setBackground(new Color(0, 0, 0, 0));
         home.setBackground(new Color(0, 0, 0, 0));
         save.setBackground(new Color(0, 0, 0, 0));
@@ -65,7 +67,13 @@ public class Condominium extends javax.swing.JFrame {
         password = new javax.swing.JPasswordField();
         login = new javax.swing.JButton();
         Background = new javax.swing.JLabel();
-        register = new javax.swing.JPanel();
+        adReport = new javax.swing.JPanel();
+        home1 = new javax.swing.JButton();
+        report1 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        adReportBg = new javax.swing.JLabel();
+        adRegister = new javax.swing.JPanel();
         date = new com.toedter.calendar.JDateChooser();
         lastname = new javax.swing.JTextField();
         home = new javax.swing.JButton();
@@ -86,8 +94,8 @@ public class Condominium extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         adIndex = new javax.swing.JPanel();
         regisbut = new javax.swing.JButton();
-        adminIndexbg = new javax.swing.JLabel();
         register1 = new javax.swing.JButton();
+        adminIndexbg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(750, 600));
@@ -101,6 +109,7 @@ public class Condominium extends javax.swing.JFrame {
         username.setBackground(new Color(0,0,0,0));
         username.setFont(new java.awt.Font("DB Helvethaica X 45 Li", 1, 24)); // NOI18N
         username.setForeground(new java.awt.Color(255, 204, 204));
+        username.setBorder(null);
         username.setCaretColor(new java.awt.Color(238, 218, 209));
         username.setSelectedTextColor(new java.awt.Color(238, 218, 209));
         username.addActionListener(new java.awt.event.ActionListener() {
@@ -113,6 +122,7 @@ public class Condominium extends javax.swing.JFrame {
         status.setEditable(false);
         status.setFont(new java.awt.Font("DB Helvethaica X 55 Regular", 1, 24)); // NOI18N
         status.setForeground(new java.awt.Color(255, 170, 171));
+        status.setBorder(null);
         status.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 statusActionPerformed(evt);
@@ -122,8 +132,10 @@ public class Condominium extends javax.swing.JFrame {
 
         password.setFont(new java.awt.Font("DB Helvethaica X 45 Li", 1, 36)); // NOI18N
         password.setForeground(new java.awt.Color(255, 171, 172));
+        password.setBorder(null);
         Login.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 552, 260, 30));
 
+        login.setBorder(null);
         login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loginActionPerformed(evt);
@@ -139,41 +151,76 @@ public class Condominium extends javax.swing.JFrame {
 
         getContentPane().add(Login, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 600));
 
-        register.setMinimumSize(new java.awt.Dimension(750, 600));
-        register.setPreferredSize(new java.awt.Dimension(750, 600));
-        register.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        register.add(date, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 170, 160, -1));
+        adReport.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        home1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                home1ActionPerformed(evt);
+            }
+        });
+        adReport.add(home1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 180, 80));
+
+        report1.setBorder(null);
+        adReport.add(report1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 70, 70, 30));
+
+        jScrollPane2.setBorder(null);
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable1);
+
+        adReport.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, 500, 460));
+
+        adReportBg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/condominium/Admin-report.png"))); // NOI18N
+        adReportBg.setText("jLabel2");
+        adReport.add(adReportBg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 600));
+
+        getContentPane().add(adReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 600));
+
+        adRegister.setMinimumSize(new java.awt.Dimension(750, 600));
+        adRegister.setPreferredSize(new java.awt.Dimension(750, 600));
+        adRegister.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        adRegister.add(date, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 170, 160, -1));
 
         lastname.setFont(new java.awt.Font("DB Helvethaica X 45 Li", 1, 24)); // NOI18N
-        register.add(lastname, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 160, 130, 30));
+        adRegister.add(lastname, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 160, 130, 30));
 
         home.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 homeActionPerformed(evt);
             }
         });
-        register.add(home, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 180, 80));
+        adRegister.add(home, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 180, 80));
 
         userId.setFont(new java.awt.Font("DB Helvethaica X 45 Li", 1, 24)); // NOI18N
-        register.add(userId, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 230, 150, 30));
+        adRegister.add(userId, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 230, 150, 30));
 
         usertel.setFont(new java.awt.Font("DB Helvethaica X 45 Li", 1, 24)); // NOI18N
-        register.add(usertel, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 230, 150, 30));
+        adRegister.add(usertel, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 230, 150, 30));
 
         usernation.setFont(new java.awt.Font("DB Helvethaica X 45 Li", 1, 24)); // NOI18N
-        register.add(usernation, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 230, 110, 30));
+        adRegister.add(usernation, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 230, 110, 30));
 
         useremerg.setFont(new java.awt.Font("DB Helvethaica X 45 Li", 1, 24)); // NOI18N
-        register.add(useremerg, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 300, 150, 30));
+        adRegister.add(useremerg, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 300, 150, 30));
 
         email.setFont(new java.awt.Font("DB Helvethaica X 45 Li", 1, 24)); // NOI18N
-        register.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 370, 180, 30));
+        adRegister.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 370, 180, 30));
 
         userregis.setFont(new java.awt.Font("DB Helvethaica X 45 Li", 1, 24)); // NOI18N
-        register.add(userregis, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 300, 130, 30));
+        adRegister.add(userregis, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 300, 130, 30));
 
         firstname.setFont(new java.awt.Font("DB Helvethaica X 45 Li", 1, 24)); // NOI18N
-        register.add(firstname, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 160, 140, 30));
+        adRegister.add(firstname, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 160, 140, 30));
 
         usertype.setFont(new java.awt.Font("DB Helvethaica X 45 Li", 1, 24)); // NOI18N
         usertype.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ระบุ user", "user", "admin" }));
@@ -182,27 +229,27 @@ public class Condominium extends javax.swing.JFrame {
                 usertypeActionPerformed(evt);
             }
         });
-        register.add(usertype, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 380, 120, 30));
-        register.add(clear, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 530, 100, 40));
-        register.add(save, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 530, 100, 40));
+        adRegister.add(usertype, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 380, 120, 30));
+        adRegister.add(clear, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 530, 100, 40));
+        adRegister.add(save, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 530, 100, 40));
 
         userpass.setFont(new java.awt.Font("DB Helvethaica X 45 Li", 1, 24)); // NOI18N
-        register.add(userpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 300, 150, -1));
-        register.add(report, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 70, 70, 30));
+        adRegister.add(userpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 300, 150, -1));
+        adRegister.add(report, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 70, 70, 30));
 
         jTextArea1.setColumns(20);
         jTextArea1.setFont(new java.awt.Font("DB Helvethaica X 55 Regular", 0, 24)); // NOI18N
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
-        register.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 450, 470, 80));
+        adRegister.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 450, 470, 80));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/condominium/register.png"))); // NOI18N
         jLabel1.setText("jLabel1");
         jLabel1.setPreferredSize(new java.awt.Dimension(750, 600));
-        register.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 600));
+        adRegister.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 600));
 
-        getContentPane().add(register, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 600));
+        getContentPane().add(adRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 600));
 
         adIndex.setPreferredSize(new java.awt.Dimension(750, 600));
         adIndex.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -215,10 +262,6 @@ public class Condominium extends javax.swing.JFrame {
         });
         adIndex.add(regisbut, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 230, 440));
 
-        adminIndexbg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/condominium/Admin-index.png"))); // NOI18N
-        adminIndexbg.setText("jLabel2");
-        adIndex.add(adminIndexbg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
         register1.setContentAreaFilled(false);
         register1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -226,6 +269,10 @@ public class Condominium extends javax.swing.JFrame {
             }
         });
         adIndex.add(register1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 70, 70, 30));
+
+        adminIndexbg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/condominium/Admin-index.png"))); // NOI18N
+        adminIndexbg.setText("jLabel2");
+        adIndex.add(adminIndexbg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         getContentPane().add(adIndex, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 600));
 
@@ -238,21 +285,21 @@ public class Condominium extends javax.swing.JFrame {
 
     private void regisbutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regisbutActionPerformed
         adIndex.setVisible(false);
-        register.setVisible(true);
+        adRegister.setVisible(true);
     }//GEN-LAST:event_regisbutActionPerformed
 
     private void homeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeActionPerformed
         adIndex.setVisible(true);
-        register.setVisible(false);
+        adRegister.setVisible(false);
     }//GEN-LAST:event_homeActionPerformed
 
     private void register1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_register1ActionPerformed
         adIndex.setVisible(false);
-        register.setVisible(true);
+        adRegister.setVisible(true);
     }//GEN-LAST:event_register1ActionPerformed
 
     private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
-        //
+        
     }//GEN-LAST:event_usernameActionPerformed
 
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
@@ -265,7 +312,6 @@ public class Condominium extends javax.swing.JFrame {
             if (user.equalsIgnoreCase("Boom") && (pass.equalsIgnoreCase("Purich1998"))) {
                 adIndex.setVisible(true);
                 Login.setVisible(false);
-
             } else {
                 String st = "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";
                 status.setText(st);
@@ -280,6 +326,10 @@ public class Condominium extends javax.swing.JFrame {
     private void statusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusActionPerformed
         //
     }//GEN-LAST:event_statusActionPerformed
+
+    private void home1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_home1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_home1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -323,22 +373,28 @@ public class Condominium extends javax.swing.JFrame {
     private javax.swing.JLabel Background;
     private javax.swing.JPanel Login;
     private javax.swing.JPanel adIndex;
+    private javax.swing.JPanel adRegister;
+    private javax.swing.JPanel adReport;
+    private javax.swing.JLabel adReportBg;
     private javax.swing.JLabel adminIndexbg;
     private javax.swing.JButton clear;
     private com.toedter.calendar.JDateChooser date;
     private javax.swing.JTextField email;
     private javax.swing.JTextField firstname;
     private javax.swing.JButton home;
+    private javax.swing.JButton home1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField lastname;
     private javax.swing.JButton login;
     private javax.swing.JPasswordField password;
     private javax.swing.JButton regisbut;
-    private javax.swing.JPanel register;
     private javax.swing.JButton register1;
     private javax.swing.JButton report;
+    private javax.swing.JButton report1;
     private javax.swing.JButton save;
     private javax.swing.JTextField status;
     private javax.swing.JTextField userId;
