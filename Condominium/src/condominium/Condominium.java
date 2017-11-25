@@ -82,6 +82,11 @@ public class Condominium extends javax.swing.JFrame {
         profileBtn.setBackground(new Color(0, 0, 0, 0));
         userShow.setBackground(new Color(0, 0, 0, 0));
         reportBtn.setBackground(new Color(0, 0, 0, 0));
+        configTopic.setBackground(new Color(0, 0, 0, 0));
+        configRoom.setBackground(new Color(0, 0, 0, 0));
+        configDetail.setBackground(new Color(0, 0, 0, 0));
+        configType.setBackground(new Color(0, 0, 0, 0));
+        searchRoom.setBackground(new Color(0, 0, 0, 0));
 
     }
 
@@ -95,6 +100,20 @@ public class Condominium extends javax.swing.JFrame {
     private void initComponents() {
 
         adReport = new javax.swing.JPanel();
+        adConfig = new javax.swing.JPanel();
+        searchRoombtn = new javax.swing.JButton();
+        okConfig = new javax.swing.JButton();
+        cancleConfig = new javax.swing.JButton();
+        deleteReport = new javax.swing.JButton();
+        configTopic = new javax.swing.JTextField();
+        configRoom = new javax.swing.JTextField();
+        configDetail = new javax.swing.JTextField();
+        configType = new javax.swing.JTextField();
+        configUser = new javax.swing.JTextField();
+        searchRoom = new javax.swing.JTextField();
+        statusBox = new javax.swing.JComboBox<>();
+        manEmpbox = new javax.swing.JComboBox<>();
+        adConfigBg = new javax.swing.JLabel();
         home1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         reportTable = new javax.swing.JTable();
@@ -165,6 +184,63 @@ public class Condominium extends javax.swing.JFrame {
 
         adReport.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        adConfig.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        searchRoombtn.setText("\n");
+        searchRoombtn.setBorder(null);
+        searchRoombtn.setContentAreaFilled(false);
+        adConfig.add(searchRoombtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 70, 70, 30));
+
+        okConfig.setContentAreaFilled(false);
+        adConfig.add(okConfig, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 360, 70, 30));
+
+        cancleConfig.setContentAreaFilled(false);
+        cancleConfig.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancleConfigActionPerformed(evt);
+            }
+        });
+        adConfig.add(cancleConfig, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 360, 80, 30));
+
+        deleteReport.setContentAreaFilled(false);
+        adConfig.add(deleteReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 360, 70, 30));
+
+        configTopic.setEditable(false);
+        configTopic.setBorder(null);
+        adConfig.add(configTopic, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 152, 270, 30));
+
+        configRoom.setEditable(false);
+        configRoom.setBorder(null);
+        adConfig.add(configRoom, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 192, 100, 30));
+
+        configDetail.setEditable(false);
+        configDetail.setBorder(null);
+        adConfig.add(configDetail, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 270, 400, 70));
+
+        configType.setEditable(false);
+        configType.setBorder(null);
+        adConfig.add(configType, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 172, 120, 30));
+
+        configUser.setEditable(false);
+        configUser.setBorder(null);
+        adConfig.add(configUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 192, 100, 30));
+
+        searchRoom.setBorder(null);
+        adConfig.add(searchRoom, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 62, 200, 30));
+
+        statusBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "New", "Actualize", "Success", " " }));
+        statusBox.setBorder(null);
+        adConfig.add(statusBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 222, 120, 30));
+
+        manEmpbox.setBorder(null);
+        adConfig.add(manEmpbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 280, 120, 60));
+
+        adConfigBg.setIcon(new javax.swing.ImageIcon("C:\\Users\\BoomGDH559\\Desktop\\Condominium\\Condominium\\src\\condominium\\adConfig.png")); // NOI18N
+        adConfigBg.setText("jLabel1");
+        adConfig.add(adConfigBg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 660, 410));
+
+        adReport.add(adConfig, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 660, 410));
+
         home1.setContentAreaFilled(false);
         home1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -188,7 +264,7 @@ public class Condominium extends javax.swing.JFrame {
 
         adReport.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 660, 410));
 
-        adReportBg.setIcon(new javax.swing.ImageIcon("C:\\Users\\BoomGDH559\\Desktop\\Condominium\\Condominium\\src\\condominium\\Admin-report.png")); // NOI18N
+        adReportBg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/condominium/Admin-report.png"))); // NOI18N
         adReportBg.setText("jLabel2");
         adReport.add(adReportBg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 600));
 
@@ -659,6 +735,10 @@ public class Condominium extends javax.swing.JFrame {
         adIndex.setVisible(false);
     }//GEN-LAST:event_adreportbutActionPerformed
 
+    private void cancleConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancleConfigActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cancleConfigActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -700,6 +780,8 @@ public class Condominium extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Background;
     private javax.swing.JPanel Login;
+    private javax.swing.JPanel adConfig;
+    private javax.swing.JLabel adConfigBg;
     private javax.swing.JPanel adIndex;
     private javax.swing.JPanel adRegister;
     private javax.swing.JPanel adReport;
@@ -708,8 +790,15 @@ public class Condominium extends javax.swing.JFrame {
     private javax.swing.JButton adregisbut;
     private javax.swing.JButton adreportbut;
     private javax.swing.JButton cancel_report;
+    private javax.swing.JButton cancleConfig;
     private javax.swing.JButton clear;
+    private javax.swing.JTextField configDetail;
+    private javax.swing.JTextField configRoom;
+    private javax.swing.JTextField configTopic;
+    private javax.swing.JTextField configType;
+    private javax.swing.JTextField configUser;
     private com.toedter.calendar.JDateChooser date;
+    private javax.swing.JButton deleteReport;
     private javax.swing.JTextField email;
     private javax.swing.JTextField firstname;
     private javax.swing.JButton home;
@@ -720,7 +809,9 @@ public class Condominium extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField lastname;
     private javax.swing.JButton login;
+    private javax.swing.JComboBox<String> manEmpbox;
     private javax.swing.JButton ok;
+    private javax.swing.JButton okConfig;
     private javax.swing.JPasswordField password;
     private javax.swing.JLabel problemType;
     private javax.swing.JComboBox<String> problemTypeCB;
@@ -735,7 +826,10 @@ public class Condominium extends javax.swing.JFrame {
     private javax.swing.JTable reportTable;
     private javax.swing.JButton save;
     private javax.swing.JButton save_report;
+    private javax.swing.JTextField searchRoom;
+    private javax.swing.JButton searchRoombtn;
     private javax.swing.JTextField status;
+    private javax.swing.JComboBox<String> statusBox;
     private javax.swing.JTextField userId;
     private javax.swing.JPanel userIndex;
     private javax.swing.JLabel userIndexBg;
