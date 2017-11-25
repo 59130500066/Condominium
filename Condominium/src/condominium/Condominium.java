@@ -9,6 +9,7 @@ import com.toedter.calendar.JDateChooser;
 import condominium.model.ManagerEmp;
 import condominium.model.Problem;
 import condominium.model.Report;
+import static condominium.model.Report.showTable;
 import condominium.model.Room;
 import condominium.model.User;
 import java.awt.Color;
@@ -29,45 +30,62 @@ public class Condominium extends javax.swing.JFrame {
     /**
      * Creates new form Register
      */
-    public void show_report(){
+    public void showReportUser() {
         List<Report> rep = Report.showTable();
-        DefaultTableModel model = (DefaultTableModel)reportTable.getModel();
+        DefaultTableModel model = (DefaultTableModel) viewReportTB.getModel();
+        Object[] row = new Object[6];
+        for (int i = 0; i < 6; i++) {
+            row[0] = rep.get(i).getReportStart();
+            row[1] = rep.get(i).getRoom().getUser().getUserFname() + " " + rep.get(i).
+                    getRoom().getUser().getUserLname();
+            row[2] = rep.get(i).getReportTopic();
+            row[3] = rep.get(i).getChargePrice();
+            row[4] = rep.get(i).getReportDetail();
+            row[5] = rep.get(i).getStat().getStatusName();
+            model.addRow(row);
+        }
+    }
+
+    public void show_report() {
+        List<Report> rep = Report.showTable();
+        DefaultTableModel model = (DefaultTableModel) reportTable.getModel();
         Object[] row = new Object[7];
-        for (int i = 0; i<rep.size(); i++) {
+        for (int i = 0; i < rep.size(); i++) {
             row[0] = rep.get(i).getReportStart();
             row[1] = rep.get(i).getReportTopic();
-            row[2] = rep.get(i).getRoom().getUser().getUserFname()+" "+rep.get(i).getRoom().getUser().getUserLname();
+            row[2] = rep.get(i).getRoom().getUser().getUserFname() + " " + rep.get(i).getRoom().getUser().getUserLname();
             row[3] = rep.get(i).getRoom().getRoomNo();
             row[4] = rep.get(i).getProb().getProbName();
             row[5] = rep.get(i).getStat().getStatusName();
-            row[6] = rep.get(i).getMan().getmFname()+" "+rep.get(i).getMan().getmLname();
+            row[6] = rep.get(i).getMan().getmFname() + " " + rep.get(i).getMan().getmLname();
             model.addRow(row);
-        }   
+        }
     }
-    
-    public void show_emp(){
-        
-        try{
+
+    public void show_emp() {
+
+        try {
             Connection con = ConnectionBuilder.getConnection();
             PreparedStatement state = con.prepareStatement("select * from managerEmp");
             ResultSet rs = state.executeQuery();
-            while(rs.next()){
-                String name = rs.getString("manFname")+" "+rs.getString("manLname");
+            while (rs.next()) {
+                String name = rs.getString("manFname") + " " + rs.getString("manLname");
                 manEmpbox.addItem(name);
-            }   
-        }catch(SQLException s){
+            }
+        } catch (SQLException s) {
             s.printStackTrace();
         }
-          
+
     }
-    
+
     User myuser = null;
 
     public Condominium() {
-        
+
         initComponents();
         show_report();
         show_emp();
+        showReportUser();
         adRegister.setVisible(false);
         adConfig.setVisible(false);
         adIndex.setVisible(false);
@@ -75,6 +93,7 @@ public class Condominium extends javax.swing.JFrame {
         adReport.setVisible(false);
         userProfile.setVisible(false);
         userReport.setVisible(false);
+        userViewReport.setVisible(false);
         firstname.setBackground(new Color(0, 0, 0, 0));
         lastname.setBackground(new Color(0, 0, 0, 0));
         usertype.setBackground(new Color(0, 0, 0, 0));
@@ -103,13 +122,15 @@ public class Condominium extends javax.swing.JFrame {
         profileBtn.setBackground(new Color(0, 0, 0, 0));
         userShow.setBackground(new Color(0, 0, 0, 0));
         reportBtn.setBackground(new Color(0, 0, 0, 0));
+        viewStatusBtn.setBackground(new Color(0, 0, 0, 0));
         configTopic.setBackground(new Color(0, 0, 0, 0));
         configRoom.setBackground(new Color(0, 0, 0, 0));
         configDetail.setBackground(new Color(0, 0, 0, 0));
         configType.setBackground(new Color(0, 0, 0, 0));
         searchReport.setBackground(new Color(0, 0, 0, 0));
         configUser.setBackground(new Color(0, 0, 0, 0));
-        
+        submit.setBackground(new Color(0, 0, 0, 0));
+
     }
 
     /**
@@ -121,7 +142,22 @@ public class Condominium extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        userViewReport = new javax.swing.JPanel();
+        viewReport_okBtn = new javax.swing.JButton();
+        viewReportPane = new javax.swing.JScrollPane();
+        viewReportTB = new javax.swing.JTable();
+        adIndex = new javax.swing.JPanel();
+        adregisbut = new javax.swing.JButton();
+        register1 = new javax.swing.JButton();
+        userIndex_logout1 = new javax.swing.JButton();
+        adreportbut = new javax.swing.JButton();
+        adminIndexbg = new javax.swing.JLabel();
         adReport = new javax.swing.JPanel();
+        home1 = new javax.swing.JButton();
+        configbtn = new javax.swing.JButton();
+        repTablePane = new javax.swing.JScrollPane();
+        reportTable = new javax.swing.JTable();
+        adReportBg = new javax.swing.JLabel();
         adConfig = new javax.swing.JPanel();
         searchReportbtn = new javax.swing.JButton();
         okConfig = new javax.swing.JButton();
@@ -136,11 +172,13 @@ public class Condominium extends javax.swing.JFrame {
         statusBox = new javax.swing.JComboBox<>();
         manEmpbox = new javax.swing.JComboBox<>();
         adConfigBg = new javax.swing.JLabel();
-        home1 = new javax.swing.JButton();
-        configbtn = new javax.swing.JButton();
-        repTablePane = new javax.swing.JScrollPane();
-        reportTable = new javax.swing.JTable();
-        adReportBg = new javax.swing.JLabel();
+        userIndex = new javax.swing.JPanel();
+        userShow = new javax.swing.JTextField();
+        reportBtn = new javax.swing.JButton();
+        profileBtn = new javax.swing.JButton();
+        viewStatusBtn = new javax.swing.JButton();
+        userIndex_logout = new javax.swing.JButton();
+        userIndexBg = new javax.swing.JLabel();
         userReport = new javax.swing.JPanel();
         reportHeader = new javax.swing.JLabel();
         reportDetail = new javax.swing.JLabel();
@@ -150,12 +188,7 @@ public class Condominium extends javax.swing.JFrame {
         problemTypeCB = new javax.swing.JComboBox<>();
         save_report = new javax.swing.JButton();
         cancel_report = new javax.swing.JButton();
-        userIndex = new javax.swing.JPanel();
-        userShow = new javax.swing.JTextField();
-        reportBtn = new javax.swing.JButton();
-        profileBtn = new javax.swing.JButton();
-        userIndex_logout = new javax.swing.JButton();
-        userIndexBg = new javax.swing.JLabel();
+        submit = new javax.swing.JTextField();
         userProfile = new javax.swing.JPanel();
         user_fName = new javax.swing.JTextField();
         user_lName = new javax.swing.JTextField();
@@ -167,18 +200,6 @@ public class Condominium extends javax.swing.JFrame {
         ok = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         userProfileBg = new javax.swing.JLabel();
-        Login = new javax.swing.JPanel();
-        username = new javax.swing.JTextField();
-        status = new javax.swing.JTextField();
-        password = new javax.swing.JPasswordField();
-        login = new javax.swing.JButton();
-        Background = new javax.swing.JLabel();
-        adIndex = new javax.swing.JPanel();
-        adregisbut = new javax.swing.JButton();
-        register1 = new javax.swing.JButton();
-        userIndex_logout1 = new javax.swing.JButton();
-        adreportbut = new javax.swing.JButton();
-        adminIndexbg = new javax.swing.JLabel();
         adRegister = new javax.swing.JPanel();
         date = new com.toedter.calendar.JDateChooser();
         lastname = new javax.swing.JTextField();
@@ -197,6 +218,12 @@ public class Condominium extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         registerBg = new javax.swing.JLabel();
+        Login = new javax.swing.JPanel();
+        username = new javax.swing.JTextField();
+        status = new javax.swing.JTextField();
+        password = new javax.swing.JPasswordField();
+        login = new javax.swing.JButton();
+        Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(750, 600));
@@ -205,7 +232,117 @@ public class Condominium extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(750, 600));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        userViewReport.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        viewReport_okBtn.setText("ตกลง");
+        viewReport_okBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewReport_okBtnActionPerformed(evt);
+            }
+        });
+        userViewReport.add(viewReport_okBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 530, 70, -1));
+
+        viewReportPane.setBorder(null);
+
+        viewReportTB.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "วันที่แจ้ง", "ชื่อผู้แจ้ง", "ปัญหาที่แจ้ง", "ค่าใช้จ่าย", "รายละเอียด", "สถานะ"
+            }
+        ));
+        viewReportTB.setEnabled(false);
+        viewReportPane.setViewportView(viewReportTB);
+
+        userViewReport.add(viewReportPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 660, 410));
+
+        getContentPane().add(userViewReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 600));
+
+        adIndex.setPreferredSize(new java.awt.Dimension(750, 600));
+        adIndex.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        adregisbut.setContentAreaFilled(false);
+        adregisbut.setPreferredSize(new java.awt.Dimension(224, 431));
+        adregisbut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adregisbutActionPerformed(evt);
+            }
+        });
+        adIndex.add(adregisbut, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 210, 420));
+
+        register1.setContentAreaFilled(false);
+        register1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                register1ActionPerformed(evt);
+            }
+        });
+        adIndex.add(register1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 70, 70, 30));
+
+        userIndex_logout1.setBorder(null);
+        userIndex_logout1.setContentAreaFilled(false);
+        userIndex_logout1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userIndex_logout1ActionPerformed(evt);
+            }
+        });
+        adIndex.add(userIndex_logout1, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 70, 90, 20));
+
+        adreportbut.setContentAreaFilled(false);
+        adreportbut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adreportbutActionPerformed(evt);
+            }
+        });
+        adIndex.add(adreportbut, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 130, 210, 420));
+
+        adminIndexbg.setIcon(new javax.swing.ImageIcon("D:\\Condominium\\Condominium\\Condominium\\src\\condominium\\Admin-index.png")); // NOI18N
+        adminIndexbg.setText("jLabel2");
+        adIndex.add(adminIndexbg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        getContentPane().add(adIndex, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 600));
+
         adReport.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        home1.setContentAreaFilled(false);
+        home1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                home1ActionPerformed(evt);
+            }
+        });
+        adReport.add(home1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 180, 80));
+
+        configbtn.setBorder(null);
+        configbtn.setContentAreaFilled(false);
+        configbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                configbtnActionPerformed(evt);
+            }
+        });
+        adReport.add(configbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 130, 90, 40));
+
+        repTablePane.setBorder(null);
+
+        reportTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "วันที่แจ้ง", "ปัญหาที่แจ้ง", "ชื่อผู้แจ้ง", "ห้องที่แจ้ง", "ประเภทปัญหา", "สถานะ", "ผู้รับผิดชอบ"
+            }
+        ));
+        reportTable.setEnabled(false);
+        repTablePane.setViewportView(reportTable);
+        if (reportTable.getColumnModel().getColumnCount() > 0) {
+            reportTable.getColumnModel().getColumn(6).setResizable(false);
+            reportTable.getColumnModel().getColumn(6).setHeaderValue("ผู้รับผิดชอบ");
+        }
+
+        adReport.add(repTablePane, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 660, 410));
+
+        adReportBg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/condominium/Admin-report.png"))); // NOI18N
+        adReportBg.setText("jLabel2");
+        adReport.add(adReportBg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 600));
 
         adConfig.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -274,49 +411,62 @@ public class Condominium extends javax.swing.JFrame {
         manEmpbox.setBorder(null);
         adConfig.add(manEmpbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 280, 120, 60));
 
-        adConfigBg.setIcon(new javax.swing.ImageIcon("C:\\Users\\BoomGDH559\\Desktop\\Condominium\\Condominium\\src\\condominium\\adConfig.png")); // NOI18N
         adConfigBg.setText("jLabel1");
         adConfig.add(adConfigBg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 660, 410));
 
         adReport.add(adConfig, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 660, 410));
 
-        home1.setContentAreaFilled(false);
-        home1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                home1ActionPerformed(evt);
-            }
-        });
-        adReport.add(home1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 180, 80));
-
-        configbtn.setBorder(null);
-        configbtn.setContentAreaFilled(false);
-        configbtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                configbtnActionPerformed(evt);
-            }
-        });
-        adReport.add(configbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 130, 90, 40));
-
-        repTablePane.setBorder(null);
-
-        reportTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "วันที่แจ้ง", "ปัญหาที่แจ้ง", "ชื่อผู้แจ้ง", "ห้องที่แจ้ง", "ประเภทปัญหา", "สถานะ", "ผู้รับผิดชอบ"
-            }
-        ));
-        reportTable.setEnabled(false);
-        repTablePane.setViewportView(reportTable);
-
-        adReport.add(repTablePane, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 660, 410));
-
-        adReportBg.setIcon(new javax.swing.ImageIcon("C:\\Users\\BoomGDH559\\Desktop\\Condominium\\Condominium\\src\\condominium\\Admin-report.png")); // NOI18N
-        adReportBg.setText("jLabel2");
-        adReport.add(adReportBg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 600));
-
         getContentPane().add(adReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 600));
+
+        userIndex.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        userShow.setEditable(false);
+        userShow.setBorder(null);
+        userShow.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userShowActionPerformed(evt);
+            }
+        });
+        userIndex.add(userShow, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 20, 230, 30));
+
+        reportBtn.setBorder(null);
+        reportBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reportBtnActionPerformed(evt);
+            }
+        });
+        userIndex.add(reportBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 130, 210, 420));
+
+        profileBtn.setBorder(null);
+        profileBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                profileBtnActionPerformed(evt);
+            }
+        });
+        userIndex.add(profileBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 210, 420));
+
+        viewStatusBtn.setBorder(null);
+        viewStatusBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewStatusBtnActionPerformed(evt);
+            }
+        });
+        userIndex.add(viewStatusBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 130, 210, 420));
+
+        userIndex_logout.setBorder(null);
+        userIndex_logout.setContentAreaFilled(false);
+        userIndex_logout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userIndex_logoutActionPerformed(evt);
+            }
+        });
+        userIndex.add(userIndex_logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 70, 90, 20));
+
+        userIndexBg.setIcon(new javax.swing.ImageIcon("D:\\Condominium\\Condominium\\Condominium\\src\\condominium\\User-index.png")); // NOI18N
+        userIndexBg.setText("jLabel1");
+        userIndex.add(userIndexBg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 600));
+
+        getContentPane().add(userIndex, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 600));
 
         userReport.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -357,49 +507,11 @@ public class Condominium extends javax.swing.JFrame {
         });
         userReport.add(cancel_report, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 380, -1, -1));
 
+        submit.setEditable(false);
+        submit.setBorder(null);
+        userReport.add(submit, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 310, 150, 40));
+
         getContentPane().add(userReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 600));
-
-        userIndex.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        userShow.setEditable(false);
-        userShow.setBorder(null);
-        userShow.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                userShowActionPerformed(evt);
-            }
-        });
-        userIndex.add(userShow, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 20, 230, 30));
-
-        reportBtn.setBorder(null);
-        reportBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                reportBtnActionPerformed(evt);
-            }
-        });
-        userIndex.add(reportBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 130, 210, 420));
-
-        profileBtn.setBorder(null);
-        profileBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                profileBtnActionPerformed(evt);
-            }
-        });
-        userIndex.add(profileBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 210, 420));
-
-        userIndex_logout.setBorder(null);
-        userIndex_logout.setContentAreaFilled(false);
-        userIndex_logout.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                userIndex_logoutActionPerformed(evt);
-            }
-        });
-        userIndex.add(userIndex_logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 70, 90, 20));
-
-        userIndexBg.setIcon(new javax.swing.ImageIcon("C:\\Users\\BoomGDH559\\Desktop\\Condominium\\Condominium\\src\\condominium\\User-index.png")); // NOI18N
-        userIndexBg.setText("jLabel1");
-        userIndex.add(userIndexBg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 600));
-
-        getContentPane().add(userIndex, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 600));
 
         userProfile.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -449,101 +561,11 @@ public class Condominium extends javax.swing.JFrame {
         jButton1.setText("jButton1");
         userProfile.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 160, 80));
 
-        userProfileBg.setIcon(new javax.swing.ImageIcon("C:\\Users\\BoomGDH559\\Desktop\\Condominium\\Condominium\\src\\condominium\\user-Profile.png")); // NOI18N
+        userProfileBg.setIcon(new javax.swing.ImageIcon("D:\\Condominium\\Condominium\\Condominium\\src\\condominium\\user-Profile.png")); // NOI18N
         userProfileBg.setText("jLabel1");
         userProfile.add(userProfileBg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         getContentPane().add(userProfile, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 600));
-
-        Login.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        username.setBackground(new Color(0,0,0,0));
-        username.setFont(new java.awt.Font("DB Helvethaica X 45 Li", 1, 24)); // NOI18N
-        username.setForeground(new java.awt.Color(255, 204, 204));
-        username.setBorder(null);
-        username.setCaretColor(new java.awt.Color(238, 218, 209));
-        username.setSelectedTextColor(new java.awt.Color(238, 218, 209));
-        username.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                usernameActionPerformed(evt);
-            }
-        });
-        Login.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 490, 260, -1));
-
-        status.setEditable(false);
-        status.setFont(new java.awt.Font("DB Helvethaica X 55 Regular", 1, 24)); // NOI18N
-        status.setForeground(new java.awt.Color(255, 170, 171));
-        status.setBorder(null);
-        status.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                statusActionPerformed(evt);
-            }
-        });
-        Login.add(status, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 490, 320, 30));
-
-        password.setFont(new java.awt.Font("DB Helvethaica X 45 Li", 1, 36)); // NOI18N
-        password.setForeground(new java.awt.Color(255, 171, 172));
-        password.setBorder(null);
-        Login.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 552, 260, 30));
-
-        login.setBorder(null);
-        login.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loginActionPerformed(evt);
-            }
-        });
-        Login.add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 540, 140, 40));
-
-        Background.setForeground(new java.awt.Color(238, 218, 209));
-        Background.setIcon(new javax.swing.ImageIcon("C:\\Users\\BoomGDH559\\Desktop\\Condominium\\Condominium\\src\\condominium\\gui-ex.png")); // NOI18N
-        Background.setText("jLabel1");
-        Background.setPreferredSize(new java.awt.Dimension(750, 600));
-        Login.add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, -1));
-
-        getContentPane().add(Login, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 600));
-
-        adIndex.setPreferredSize(new java.awt.Dimension(750, 600));
-        adIndex.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        adregisbut.setContentAreaFilled(false);
-        adregisbut.setPreferredSize(new java.awt.Dimension(224, 431));
-        adregisbut.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                adregisbutActionPerformed(evt);
-            }
-        });
-        adIndex.add(adregisbut, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 210, 420));
-
-        register1.setContentAreaFilled(false);
-        register1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                register1ActionPerformed(evt);
-            }
-        });
-        adIndex.add(register1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 70, 70, 30));
-
-        userIndex_logout1.setBorder(null);
-        userIndex_logout1.setContentAreaFilled(false);
-        userIndex_logout1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                userIndex_logout1ActionPerformed(evt);
-            }
-        });
-        adIndex.add(userIndex_logout1, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 70, 90, 20));
-
-        adreportbut.setContentAreaFilled(false);
-        adreportbut.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                adreportbutActionPerformed(evt);
-            }
-        });
-        adIndex.add(adreportbut, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 130, 210, 420));
-
-        adminIndexbg.setIcon(new javax.swing.ImageIcon("C:\\Users\\BoomGDH559\\Desktop\\Condominium\\Condominium\\src\\condominium\\Admin-index.png")); // NOI18N
-        adminIndexbg.setText("jLabel2");
-        adIndex.add(adminIndexbg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        getContentPane().add(adIndex, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 600));
 
         adRegister.setMinimumSize(new java.awt.Dimension(750, 600));
         adRegister.setPreferredSize(new java.awt.Dimension(750, 600));
@@ -602,12 +624,59 @@ public class Condominium extends javax.swing.JFrame {
 
         adRegister.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 450, 470, 80));
 
-        registerBg.setIcon(new javax.swing.ImageIcon("C:\\Users\\BoomGDH559\\Desktop\\Condominium\\Condominium\\src\\condominium\\register.png")); // NOI18N
+        registerBg.setIcon(new javax.swing.ImageIcon("D:\\Condominium\\Condominium\\Condominium\\src\\condominium\\register.png")); // NOI18N
         registerBg.setText("jLabel1");
         registerBg.setPreferredSize(new java.awt.Dimension(750, 600));
         adRegister.add(registerBg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 600));
 
         getContentPane().add(adRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 600));
+
+        Login.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        username.setBackground(new Color(0,0,0,0));
+        username.setFont(new java.awt.Font("DB Helvethaica X 45 Li", 1, 24)); // NOI18N
+        username.setForeground(new java.awt.Color(255, 204, 204));
+        username.setBorder(null);
+        username.setCaretColor(new java.awt.Color(238, 218, 209));
+        username.setSelectedTextColor(new java.awt.Color(238, 218, 209));
+        username.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usernameActionPerformed(evt);
+            }
+        });
+        Login.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 490, 260, -1));
+
+        status.setEditable(false);
+        status.setFont(new java.awt.Font("DB Helvethaica X 55 Regular", 1, 24)); // NOI18N
+        status.setForeground(new java.awt.Color(255, 170, 171));
+        status.setBorder(null);
+        status.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                statusActionPerformed(evt);
+            }
+        });
+        Login.add(status, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 490, 320, 30));
+
+        password.setFont(new java.awt.Font("DB Helvethaica X 45 Li", 1, 36)); // NOI18N
+        password.setForeground(new java.awt.Color(255, 171, 172));
+        password.setBorder(null);
+        Login.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 552, 260, 30));
+
+        login.setBorder(null);
+        login.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginActionPerformed(evt);
+            }
+        });
+        Login.add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 540, 140, 40));
+
+        Background.setForeground(new java.awt.Color(238, 218, 209));
+        Background.setIcon(new javax.swing.ImageIcon("D:\\Condominium\\Condominium\\Condominium\\src\\condominium\\gui-ex.png")); // NOI18N
+        Background.setText("jLabel1");
+        Background.setPreferredSize(new java.awt.Dimension(750, 600));
+        Login.add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, -1));
+
+        getContentPane().add(Login, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 600));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -744,10 +813,14 @@ public class Condominium extends javax.swing.JFrame {
 //            System.out.println(p.getProbId());
 //            System.out.println(r.getRoomId());
             boolean insert = Report.insertReoprt(reportH, reportD, p.getProbId(),
-                     r.getRoomId());
+                    r.getRoomId());
             if (insert) {
                 System.out.println("บันทึกเรียบร้อย");
+                submit.setText("บันทึกเรียบร้อย");
             }
+
+            submit.setText("ไม่สามารถบันทึกได้");
+
         }
     }//GEN-LAST:event_save_reportActionPerformed
 
@@ -793,11 +866,11 @@ public class Condominium extends javax.swing.JFrame {
     }//GEN-LAST:event_configbtnActionPerformed
 
     private void searchReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchReportActionPerformed
-        
+
     }//GEN-LAST:event_searchReportActionPerformed
 
     private void configTopicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_configTopicActionPerformed
-        
+
     }//GEN-LAST:event_configTopicActionPerformed
 
     private void searchReportbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchReportbtnActionPerformed
@@ -806,9 +879,21 @@ public class Condominium extends javax.swing.JFrame {
         configTopic.setText(config.getReportTopic());
         configDetail.setText(config.getReportDetail());
         configRoom.setText(config.getRoom().getRoomNo());
-        configUser.setText(config.getRoom().getUser().getUserFname()+" "+config.getRoom().getUser().getUserLname());
+        configUser.setText(config.getRoom().getUser().getUserFname() + " " + config.getRoom().getUser().getUserLname());
         configType.setText(config.getProb().getProbName());
     }//GEN-LAST:event_searchReportbtnActionPerformed
+
+    private void viewStatusBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewStatusBtnActionPerformed
+        // TODO add your handling code here:
+        userViewReport.setVisible(true);
+        userIndex.setVisible(false);
+    }//GEN-LAST:event_viewStatusBtnActionPerformed
+
+    private void viewReport_okBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewReport_okBtnActionPerformed
+        // TODO add your handling code here:
+        userViewReport.setVisible(false);
+        userIndex.setVisible(true);
+    }//GEN-LAST:event_viewReport_okBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -902,6 +987,7 @@ public class Condominium extends javax.swing.JFrame {
     private javax.swing.JButton searchReportbtn;
     private javax.swing.JTextField status;
     private javax.swing.JComboBox<String> statusBox;
+    private javax.swing.JTextField submit;
     private javax.swing.JTextField userId;
     private javax.swing.JPanel userIndex;
     private javax.swing.JLabel userIndexBg;
@@ -911,6 +997,7 @@ public class Condominium extends javax.swing.JFrame {
     private javax.swing.JLabel userProfileBg;
     private javax.swing.JPanel userReport;
     private javax.swing.JTextField userShow;
+    private javax.swing.JPanel userViewReport;
     private javax.swing.JTextField user_address;
     private javax.swing.JTextField user_emergTelNo;
     private javax.swing.JTextField user_fName;
@@ -925,5 +1012,9 @@ public class Condominium extends javax.swing.JFrame {
     private javax.swing.JTextField userregis;
     private javax.swing.JTextField usertel;
     private javax.swing.JComboBox<String> usertype;
+    private javax.swing.JScrollPane viewReportPane;
+    private javax.swing.JTable viewReportTB;
+    private javax.swing.JButton viewReport_okBtn;
+    private javax.swing.JButton viewStatusBtn;
     // End of variables declaration//GEN-END:variables
 }
