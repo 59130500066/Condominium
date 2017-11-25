@@ -9,6 +9,7 @@ import condominium.ConnectionBuilder;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
@@ -57,7 +58,27 @@ public class Problem {
         return p;
     }
     
-    public static void main(String[] args) {
-        System.out.println(findProbIdByprobName("ระบบไฟฟ้า"));
+    public static Problem findprobbyId(int probId){
+        
+        Problem prob = new Problem();
+        try{
+            Connection con = ConnectionBuilder.getConnection();
+            PreparedStatement state = con.prepareStatement("select * from problemType where probId = ?");
+            state.setInt(1, probId);
+            ResultSet rs = state.executeQuery();
+            while(rs.next()){
+                prob.setProbId(rs.getInt(1));
+                prob.setProbName(rs.getString(2));
+            }
+        }catch(SQLException s){
+            System.err.print(s);
+        }
+        return prob;
+        
+        
     }
+    
+//    public static void main(String[] args) {
+//        System.out.println(findProbIdByprobName("ระบบไฟฟ้า"));
+//    }
 }

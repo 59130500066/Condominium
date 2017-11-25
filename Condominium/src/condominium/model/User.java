@@ -154,6 +154,33 @@ public class User {
         return u;
     }
     
+    public static User findById(int userId) {
+        User u = new User();
+        try {
+            Connection con = ConnectionBuilder.getConnection();
+            String sql = "SELECT * FROM `user` WHERE userId = ?";
+            PreparedStatement pstm = con.prepareStatement(sql);
+            pstm.setInt(1,userId);
+            ResultSet rs = pstm.executeQuery();
+            if (rs.next()) {
+                u.setUserType(rs.getString("userType"));
+                u.setUserName(rs.getString("userName"));
+                u.setUserPassword(rs.getString("userPassword"));
+                u.setUserFname(rs.getString("userFName"));
+                u.setUserLname(rs.getString("userLName"));
+                u.setUserAddress(rs.getString("userAddress"));
+                u.setUserEmergTel(rs.getString("userEmergTel"));
+                u.setUserId(rs.getInt("userId"));
+                u.setUserNation(rs.getString("userNation"));
+                u.setUserTelno(rs.getString("userTelno"));                
+            }
+            con.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } 
+        return u;
+    }
+    
 
     @Override
     public String toString() {

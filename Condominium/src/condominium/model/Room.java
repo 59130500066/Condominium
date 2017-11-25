@@ -9,6 +9,7 @@ import condominium.ConnectionBuilder;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
@@ -21,7 +22,18 @@ public class Room {
     private String roomFloor;
     private int userId;
     private int buildId;
+    private User user;
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+    
+    
+    
     public int getRoomId() {
         return roomId;
     }
@@ -75,6 +87,32 @@ public class Room {
         return "Room{" + "roomId=" + roomId + ", roomNo=" + roomNo + ", roomType=" + roomType + ", roomFloor=" + roomFloor + ", userId=" + userId + ", buildId=" + buildId + '}';
     }
     
+    public static Room finduserbyId(int roomId){
+        
+        Room rm = new Room();
+        try{
+            Connection con = ConnectionBuilder.getConnection();
+            PreparedStatement state = con.prepareStatement("select * from room rm join user u on rm.userId = u.userId where rm.roomId = ?");
+            state.setInt(1,roomId);
+            ResultSet rs = state.executeQuery();
+            while(rs.next()){
+                rm.setRoomId(rs.getInt("roomId"));
+                rm.setRoomNo(rs.getString("roomNo"));
+                rm.setUser(User.findById(rs.getInt("userId")));
+                
+            }
+            
+            con.close();
+            
+        }catch(SQLException s){
+            s.printStackTrace();
+            System.err.print(s);
+        }
+
+        return rm;    
+        
+        
+    }
   
     public static Room findRoomIdByUserId(int userId){
         Room r = new Room();
