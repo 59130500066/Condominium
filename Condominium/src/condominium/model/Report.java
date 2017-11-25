@@ -159,7 +159,7 @@ public class Report {
             String sql = "INSERT INTO `Condominium`.`report` (`reportId`, "
                     + "`reportTopic`, `reportDetail`, `reportStart`, `chargeName`, "
                     + "`chargePrice`, `roomId`, `probId`, `statusId`, `manId`) "
-                    + "VALUES (NULL, ?, ?, CURRENT_TIMESTAMP, '', "
+                    + "VALUES (NULL, ?, ?, CURRENT_TIMESTAMP, NULL, "
                     + "0, ?, ?, 1, 0);";
             PreparedStatement pstm = con.prepareStatement(sql);
             pstm.setString(1, reportTop);
@@ -182,7 +182,10 @@ public class Report {
         List<Report> rp = null;
         try{
             Connection con = ConnectionBuilder.getConnection();
-            PreparedStatement state = con.prepareStatement("select * from report r join status s on r.statusId = s.statusId join managerEmp m on r.manId = m.manId join problemType p on p.probId = r.probId join room rm on r.roomId = rm.roomId");
+            PreparedStatement state = con.prepareStatement("select * from "
+                    + "report r join status s on r.statusId = s.statusId join "
+                    + "managerEmp m on r.manId = m.manId join problemType p "
+                    + "on p.probId = r.probId join room rm on r.roomId = rm.roomId");
             ResultSet rs = state.executeQuery();
             while(rs.next()){
                 if (rp == null) {
@@ -231,8 +234,20 @@ public class Report {
         return config;
     }
 
-//    public static void main(String[] args) {
+    @Override
+    public String toString() {
+        return "Report{" + "reportId=" + reportId + ", reportTopic=" + reportTopic + ", reportDetail=" + reportDetail + ", chargeName=" + chargeName + ", chargePrice=" + chargePrice + ", roomId=" + roomId + ", probId=" + probId + ", statusId=" + statusId + ", manId=" + manId + ", reportStart=" + reportStart + ", man=" + man + ", status=" + status + ", prob=" + prob + ", room=" + room + '}';
+    }
+    
+    
+    public static void main(String[] args) {
+        
 //        Report config = Report.configShow(9);
 //        System.out.println(config.getReportTopic());
-//    }
+//        List<Report> r = showTable();
+//        for (Report a : r) {
+//            System.out.println(a);
+//        }
+
+    }
 }
