@@ -10,12 +10,38 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author BoomGDH559
  */
 public class ManagerEmp {
+
+    public static List<ManagerEmp> showEmp() {
+        
+        List<ManagerEmp> emp = null;
+        try{
+            Connection con = ConnectionBuilder.getConnection();
+            PreparedStatement state = con.prepareStatement("select * from managerEmp");
+            ResultSet rs = state.executeQuery();
+            while(rs.next()){
+                if(emp == null){
+                    emp = new ArrayList<ManagerEmp>();
+                }
+                ManagerEmp man = new ManagerEmp();
+                man.setmFname(rs.getString("manFname"));
+                man.setmLname(rs.getString("manLname"));
+                emp.add(man);
+            }
+            con.close();
+        }catch(SQLException s){
+            s.printStackTrace();
+        }
+        return emp;
+        
+    }
     
     private int manId;
     private String mFname,mLname;
@@ -64,6 +90,16 @@ public class ManagerEmp {
         
         
     }
+    
+    
+    
+//    public static void main(String[] args) {
+//        
+//        List<ManagerEmp> emp = ManagerEmp.showEmp();
+//        for (ManagerEmp managerEmp : emp) {
+//            System.out.println(managerEmp.getManId()+" "+managerEmp.getmFname()+" "+managerEmp.getmLname());
+//        }
+//    }
     
     
     

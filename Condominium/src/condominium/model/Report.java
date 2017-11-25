@@ -206,8 +206,33 @@ public class Report {
         return rp;
     
     }
+    
+    public static Report configShow(int reportId){
+        
+        Report config = new Report();
+        try{
+            Connection con = ConnectionBuilder.getConnection();
+            PreparedStatement state = con.prepareStatement("select * from report r join status s on r.statusId = s.statusId join managerEmp m on r.manId = m.manId "
+                    + "join problemType p on p.probId = r.probId join room rm on r.roomId = rm.roomId where r.reportId = ?");
+            state.setInt(1, reportId);
+            ResultSet rs = state.executeQuery();
+            while(rs.next()){
+                config.setReportTopic(rs.getString("reportTopic"));
+                config.setReportDetail(rs.getString("reportDetail"));
+                config.setRoom(Room.finduserbyId(rs.getInt("roomId")));
+                config.setProb(Problem.findprobbyId(rs.getInt("probId")));
+            }
+            con.close();
+        }catch(SQLException s){
+            s.printStackTrace();
+            System.err.print(s);
+        }
+        
+        return config;
+    }
 
 //    public static void main(String[] args) {
-//        System.out.println(insertReoprt("เจ็บจิ๋ม", "มากมาก", 5, 4));
+//        Report config = Report.configShow(9);
+//        System.out.println(config.getReportTopic());
 //    }
 }

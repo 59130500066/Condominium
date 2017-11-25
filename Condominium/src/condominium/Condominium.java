@@ -6,11 +6,14 @@
 package condominium;
 
 import com.toedter.calendar.JDateChooser;
+import condominium.model.ManagerEmp;
 import condominium.model.Problem;
 import condominium.model.Report;
 import condominium.model.Room;
 import condominium.model.User;
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.*;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -42,13 +45,31 @@ public class Condominium extends javax.swing.JFrame {
         }   
     }
     
+    public void show_emp(){
+        
+        try{
+            Connection con = ConnectionBuilder.getConnection();
+            PreparedStatement state = con.prepareStatement("select * from managerEmp");
+            ResultSet rs = state.executeQuery();
+            while(rs.next()){
+                String name = rs.getString("manFname")+" "+rs.getString("manLname");
+                manEmpbox.addItem(name);
+            }   
+        }catch(SQLException s){
+            s.printStackTrace();
+        }
+          
+    }
+    
     User myuser = null;
 
     public Condominium() {
         
         initComponents();
         show_report();
+        show_emp();
         adRegister.setVisible(false);
+        adConfig.setVisible(false);
         adIndex.setVisible(false);
         userIndex.setVisible(false);
         adReport.setVisible(false);
@@ -86,8 +107,9 @@ public class Condominium extends javax.swing.JFrame {
         configRoom.setBackground(new Color(0, 0, 0, 0));
         configDetail.setBackground(new Color(0, 0, 0, 0));
         configType.setBackground(new Color(0, 0, 0, 0));
-        searchRoom.setBackground(new Color(0, 0, 0, 0));
-
+        searchReport.setBackground(new Color(0, 0, 0, 0));
+        configUser.setBackground(new Color(0, 0, 0, 0));
+        
     }
 
     /**
@@ -101,7 +123,7 @@ public class Condominium extends javax.swing.JFrame {
 
         adReport = new javax.swing.JPanel();
         adConfig = new javax.swing.JPanel();
-        searchRoombtn = new javax.swing.JButton();
+        searchReportbtn = new javax.swing.JButton();
         okConfig = new javax.swing.JButton();
         cancleConfig = new javax.swing.JButton();
         deleteReport = new javax.swing.JButton();
@@ -110,12 +132,13 @@ public class Condominium extends javax.swing.JFrame {
         configDetail = new javax.swing.JTextField();
         configType = new javax.swing.JTextField();
         configUser = new javax.swing.JTextField();
-        searchRoom = new javax.swing.JTextField();
+        searchReport = new javax.swing.JTextField();
         statusBox = new javax.swing.JComboBox<>();
         manEmpbox = new javax.swing.JComboBox<>();
         adConfigBg = new javax.swing.JLabel();
         home1 = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        configbtn = new javax.swing.JButton();
+        repTablePane = new javax.swing.JScrollPane();
         reportTable = new javax.swing.JTable();
         adReportBg = new javax.swing.JLabel();
         userReport = new javax.swing.JPanel();
@@ -186,10 +209,15 @@ public class Condominium extends javax.swing.JFrame {
 
         adConfig.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        searchRoombtn.setText("\n");
-        searchRoombtn.setBorder(null);
-        searchRoombtn.setContentAreaFilled(false);
-        adConfig.add(searchRoombtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 70, 70, 30));
+        searchReportbtn.setText("\n");
+        searchReportbtn.setBorder(null);
+        searchReportbtn.setContentAreaFilled(false);
+        searchReportbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchReportbtnActionPerformed(evt);
+            }
+        });
+        adConfig.add(searchReportbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 70, 70, 30));
 
         okConfig.setContentAreaFilled(false);
         adConfig.add(okConfig, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 360, 70, 30));
@@ -207,6 +235,11 @@ public class Condominium extends javax.swing.JFrame {
 
         configTopic.setEditable(false);
         configTopic.setBorder(null);
+        configTopic.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                configTopicActionPerformed(evt);
+            }
+        });
         adConfig.add(configTopic, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 152, 270, 30));
 
         configRoom.setEditable(false);
@@ -225,8 +258,14 @@ public class Condominium extends javax.swing.JFrame {
         configUser.setBorder(null);
         adConfig.add(configUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 192, 100, 30));
 
-        searchRoom.setBorder(null);
-        adConfig.add(searchRoom, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 62, 200, 30));
+        searchReport.setFont(new java.awt.Font("BrowalliaUPC", 1, 24)); // NOI18N
+        searchReport.setBorder(null);
+        searchReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchReportActionPerformed(evt);
+            }
+        });
+        adConfig.add(searchReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 62, 200, 30));
 
         statusBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "New", "Actualize", "Success", " " }));
         statusBox.setBorder(null);
@@ -249,7 +288,16 @@ public class Condominium extends javax.swing.JFrame {
         });
         adReport.add(home1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 180, 80));
 
-        jScrollPane2.setBorder(null);
+        configbtn.setBorder(null);
+        configbtn.setContentAreaFilled(false);
+        configbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                configbtnActionPerformed(evt);
+            }
+        });
+        adReport.add(configbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 130, 90, 40));
+
+        repTablePane.setBorder(null);
 
         reportTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -260,11 +308,11 @@ public class Condominium extends javax.swing.JFrame {
             }
         ));
         reportTable.setEnabled(false);
-        jScrollPane2.setViewportView(reportTable);
+        repTablePane.setViewportView(reportTable);
 
-        adReport.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 660, 410));
+        adReport.add(repTablePane, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 660, 410));
 
-        adReportBg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/condominium/Admin-report.png"))); // NOI18N
+        adReportBg.setIcon(new javax.swing.ImageIcon("C:\\Users\\BoomGDH559\\Desktop\\Condominium\\Condominium\\src\\condominium\\Admin-report.png")); // NOI18N
         adReportBg.setText("jLabel2");
         adReport.add(adReportBg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 600));
 
@@ -739,6 +787,29 @@ public class Condominium extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cancleConfigActionPerformed
 
+    private void configbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_configbtnActionPerformed
+        adConfig.setVisible(true);
+        repTablePane.setVisible(false);
+    }//GEN-LAST:event_configbtnActionPerformed
+
+    private void searchReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchReportActionPerformed
+        
+    }//GEN-LAST:event_searchReportActionPerformed
+
+    private void configTopicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_configTopicActionPerformed
+        
+    }//GEN-LAST:event_configTopicActionPerformed
+
+    private void searchReportbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchReportbtnActionPerformed
+        int reportSearch = Integer.parseInt(searchReport.getText());
+        Report config = Report.configShow(reportSearch);
+        configTopic.setText(config.getReportTopic());
+        configDetail.setText(config.getReportDetail());
+        configRoom.setText(config.getRoom().getRoomNo());
+        configUser.setText(config.getRoom().getUser().getUserFname()+" "+config.getRoom().getUser().getUserLname());
+        configType.setText(config.getProb().getProbName());
+    }//GEN-LAST:event_searchReportbtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -797,6 +868,7 @@ public class Condominium extends javax.swing.JFrame {
     private javax.swing.JTextField configTopic;
     private javax.swing.JTextField configType;
     private javax.swing.JTextField configUser;
+    private javax.swing.JButton configbtn;
     private com.toedter.calendar.JDateChooser date;
     private javax.swing.JButton deleteReport;
     private javax.swing.JTextField email;
@@ -805,7 +877,6 @@ public class Condominium extends javax.swing.JFrame {
     private javax.swing.JButton home1;
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField lastname;
     private javax.swing.JButton login;
@@ -818,6 +889,7 @@ public class Condominium extends javax.swing.JFrame {
     private javax.swing.JButton profileBtn;
     private javax.swing.JButton register1;
     private javax.swing.JLabel registerBg;
+    private javax.swing.JScrollPane repTablePane;
     private javax.swing.JButton reportBtn;
     private javax.swing.JLabel reportDetail;
     private javax.swing.JTextField reportDetailTF;
@@ -826,8 +898,8 @@ public class Condominium extends javax.swing.JFrame {
     private javax.swing.JTable reportTable;
     private javax.swing.JButton save;
     private javax.swing.JButton save_report;
-    private javax.swing.JTextField searchRoom;
-    private javax.swing.JButton searchRoombtn;
+    private javax.swing.JTextField searchReport;
+    private javax.swing.JButton searchReportbtn;
     private javax.swing.JTextField status;
     private javax.swing.JComboBox<String> statusBox;
     private javax.swing.JTextField userId;
