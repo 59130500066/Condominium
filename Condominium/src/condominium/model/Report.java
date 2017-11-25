@@ -5,11 +5,16 @@
  */
 package condominium.model;
 
+import condominium.ConnectionBuilder;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
 /**
  *
  * @author B_PNP
  */
 public class Report {
+
     private int reportId;
     private String reportTopic;
     private String reportDetail;
@@ -100,8 +105,34 @@ public class Report {
     public void setManId(int manId) {
         this.manId = manId;
     }
-    
-    
-    
-    
+
+    public static boolean insertReoprt(String reportTop, String reposrtDe,
+            int problemId, int roomId) {
+        boolean r = false;
+        try {
+            Connection con = ConnectionBuilder.getConnection();
+            String sql = "INSERT INTO `Condominium`.`report` (`reportId`, "
+                    + "`reportTopic`, `reportDetail`, `reportStart`, `chargeName`, "
+                    + "`chargePrice`, `roomId`, `probId`, `statusId`, `manId`) "
+                    + "VALUES (NULL, ?, ?, CURRENT_TIMESTAMP, '', "
+                    + "0, ?, ?, 1, 0);";
+            PreparedStatement pstm = con.prepareStatement(sql);
+            pstm.setString(1, reportTop);
+            pstm.setString(2, reposrtDe);
+            pstm.setInt(3, roomId);
+            pstm.setInt(4, problemId);
+            int update = pstm.executeUpdate();
+            if (update == 1) {
+                r = true;
+            }
+            con.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return r;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(insertReoprt("เจ็บจิ๋ม", "มากมาก", 5, 4));
+    }
 }

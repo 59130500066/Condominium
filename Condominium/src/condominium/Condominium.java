@@ -6,6 +6,9 @@
 package condominium;
 
 import com.toedter.calendar.JDateChooser;
+import condominium.model.Problem;
+import condominium.model.Report;
+import condominium.model.Room;
 import condominium.model.User;
 import java.awt.Color;
 import java.util.Calendar;
@@ -81,6 +84,12 @@ public class Condominium extends javax.swing.JFrame {
         problemTypeCB = new javax.swing.JComboBox<>();
         save_report = new javax.swing.JButton();
         cancel_report = new javax.swing.JButton();
+        userIndex = new javax.swing.JPanel();
+        userShow = new javax.swing.JTextField();
+        reportBtn = new javax.swing.JButton();
+        profileBtn = new javax.swing.JButton();
+        userIndex_logout = new javax.swing.JButton();
+        userIndexBg = new javax.swing.JLabel();
         userProfile = new javax.swing.JPanel();
         user_userId = new javax.swing.JTextField();
         user_fName = new javax.swing.JTextField();
@@ -99,12 +108,6 @@ public class Condominium extends javax.swing.JFrame {
         emergTelNo = new javax.swing.JLabel();
         nation = new javax.swing.JLabel();
         ok = new javax.swing.JButton();
-        userIndex = new javax.swing.JPanel();
-        userShow = new javax.swing.JTextField();
-        reportBtn = new javax.swing.JButton();
-        profileBtn = new javax.swing.JButton();
-        userIndex_logout = new javax.swing.JButton();
-        userIndexBg = new javax.swing.JLabel();
         Login = new javax.swing.JPanel();
         username = new javax.swing.JTextField();
         status = new javax.swing.JTextField();
@@ -188,6 +191,48 @@ public class Condominium extends javax.swing.JFrame {
 
         getContentPane().add(userReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 600));
 
+        userIndex.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        userShow.setEditable(false);
+        userShow.setBorder(null);
+        userShow.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userShowActionPerformed(evt);
+            }
+        });
+        userIndex.add(userShow, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 20, 230, 30));
+
+        reportBtn.setBorder(null);
+        reportBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reportBtnActionPerformed(evt);
+            }
+        });
+        userIndex.add(reportBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 130, 210, 420));
+
+        profileBtn.setBorder(null);
+        profileBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                profileBtnActionPerformed(evt);
+            }
+        });
+        userIndex.add(profileBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 210, 420));
+
+        userIndex_logout.setBorder(null);
+        userIndex_logout.setContentAreaFilled(false);
+        userIndex_logout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userIndex_logoutActionPerformed(evt);
+            }
+        });
+        userIndex.add(userIndex_logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 70, 90, 20));
+
+        userIndexBg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/condominium/User-index.png"))); // NOI18N
+        userIndexBg.setText("jLabel1");
+        userIndex.add(userIndexBg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 600));
+
+        getContentPane().add(userIndex, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 600));
+
         userProfile.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         user_userId.setEditable(false);
@@ -262,48 +307,6 @@ public class Condominium extends javax.swing.JFrame {
         userProfile.add(ok, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 480, -1, -1));
 
         getContentPane().add(userProfile, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 600));
-
-        userIndex.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        userShow.setEditable(false);
-        userShow.setBorder(null);
-        userShow.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                userShowActionPerformed(evt);
-            }
-        });
-        userIndex.add(userShow, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 20, 230, 30));
-
-        reportBtn.setBorder(null);
-        reportBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                reportBtnActionPerformed(evt);
-            }
-        });
-        userIndex.add(reportBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 130, 210, 420));
-
-        profileBtn.setBorder(null);
-        profileBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                profileBtnActionPerformed(evt);
-            }
-        });
-        userIndex.add(profileBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 210, 420));
-
-        userIndex_logout.setBorder(null);
-        userIndex_logout.setContentAreaFilled(false);
-        userIndex_logout.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                userIndex_logoutActionPerformed(evt);
-            }
-        });
-        userIndex.add(userIndex_logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 70, 90, 20));
-
-        userIndexBg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/condominium/User-index.png"))); // NOI18N
-        userIndexBg.setText("jLabel1");
-        userIndex.add(userIndexBg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 600));
-
-        getContentPane().add(userIndex, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 600));
 
         Login.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -502,7 +505,7 @@ public class Condominium extends javax.swing.JFrame {
     private void register1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_register1ActionPerformed
         adIndex.setVisible(false);
         adRegister.setVisible(true);
-        
+
     }//GEN-LAST:event_register1ActionPerformed
 
     private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
@@ -510,7 +513,8 @@ public class Condominium extends javax.swing.JFrame {
     }//GEN-LAST:event_usernameActionPerformed
 
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
-
+//        username.setText("user02");
+//        password.setText("user");
         String user = username.getText();
         char[] word = password.getPassword();
         String pass = new String(word);
@@ -587,9 +591,9 @@ public class Condominium extends javax.swing.JFrame {
         // TODO add your handling code here:
         userIndex.setVisible(false);
         userReport.setVisible(true);
-        
-        if(myuser != null){
-            
+
+        if (myuser != null) {
+
         }
     }//GEN-LAST:event_reportBtnActionPerformed
 
@@ -599,8 +603,27 @@ public class Condominium extends javax.swing.JFrame {
 
     private void save_reportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_save_reportActionPerformed
         // TODO add your handling code here:
-        String reportH = reportHeader.getText();
-        String reportD = reportDetail.getText();
+        String reportH = reportHeaderTF.getText();
+        String reportD = reportDetailTF.getText();
+        String probType = problemTypeCB.getSelectedItem().toString();
+        Report rp = null;
+        Room r = null;
+        Problem p = null;
+//        System.out.println(myuser.getUserId());
+//        System.out.println(reportH);
+//        System.out.println(reportD);
+//        System.out.println(probType);
+        if (!reportH.equals("") && !reportD.equals("")) {
+            r = Room.findRoomIdByUserId(myuser.getUserId());
+            p = Problem.findProbIdByprobName(probType);
+//            System.out.println(p.getProbId());
+//            System.out.println(r.getRoomId());
+            boolean insert = Report.insertReoprt(reportH, reportD, p.getProbId(),
+                     r.getRoomId());
+            if (insert) {
+                System.out.println("บันทึกเรียบร้อย");
+            }
+        }
     }//GEN-LAST:event_save_reportActionPerformed
 
     private void okActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okActionPerformed
